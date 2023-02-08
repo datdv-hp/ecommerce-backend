@@ -1,0 +1,19 @@
+{
+  "name": "ecommerce-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/datdv-hp/ecommerce-backend.git"
+  },
+  "author": "datdv-hp",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/datdv-hp/ecommerce-backend/issues"
+  },
+  "homepage": "https://github.com/datdv-hp/ecommerce-backend#readme"
+}

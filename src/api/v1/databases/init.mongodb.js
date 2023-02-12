@@ -27,9 +27,9 @@ function dbConnect(uri) {
   return db;
 }
 
-const { MONGODB_URI, SHOP_URI, TEST_SHOP_URI } = process.env;
+const { MONGODB_URI } = process.env;
 const datShopDB = dbConnect(MONGODB_URI);
-const shopDB = dbConnect(SHOP_URI);
-const testShopDB = dbConnect(TEST_SHOP_URI);
+// const shopDB = dbConnect(SHOP_URI);
+// const testShopDB = dbConnect(TEST_SHOP_URI);
 
-module.exports = { shopDB, testShopDB, datShopDB };
+module.exports = { datShopDB };

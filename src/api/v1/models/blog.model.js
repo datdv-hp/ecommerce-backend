@@ -32,6 +32,12 @@ var blogSchema = new Schema(
         ref: 'User',
       },
     ],
+    likes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
     images: {
       type: String,
       default:
@@ -55,5 +61,5 @@ var blogSchema = new Schema(
 );
 
 module.exports = {
-  Blog: datShopDB.model('User', blogSchema),
+  Blog: datShopDB.model('Blog', blogSchema),
 };

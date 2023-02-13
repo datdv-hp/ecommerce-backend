@@ -2,7 +2,7 @@ const { Schema } = require('mongoose'); // Erase if already required
 const { datShopDB } = require('../databases/init.mongodb');
 
 // Declare the Schema of the Mongo model
-var productCategorySchema = new Schema(
+var blogCategorySchema = new Schema(
   {
     title: {
       type: String,
@@ -11,10 +11,10 @@ var productCategorySchema = new Schema(
       index: true,
     },
   },
-  { collection: 'product_categories', timestamps: true }
+  { collection: 'blog_categories', timestamps: true }
 );
 
 //Export the model
 module.exports = {
-  ProductCategory: datShopDB.model('ProductCategory', productCategorySchema),
+  BlogCategory: datShopDB.model('BlogCategory', blogCategorySchema),
 };

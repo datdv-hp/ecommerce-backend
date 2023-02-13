@@ -20,8 +20,8 @@ const createCategory = asyncHandler(async (req, res, next) => {
 
 const getAllCategory = asyncHandler(async (req, res, next) => {
   const categories = await blogCategoryService.getAllCategory();
-  res.status(201).json({
-    status: 201,
+  res.status(200).json({
+    status: 200,
     message: 'Got all category',
     elements: categories,
     expose: {},
@@ -35,9 +35,9 @@ const getCategory = asyncHandler(async (req, res, next) => {
   if (!category) {
     throw httpError.BadRequest('Error, The category is not found.');
   } else {
-    res.status(201).json({
-      status: 201,
-      message: 'Created successfully',
+    res.status(200).json({
+      status: 200,
+      message: 'Got a blog category successfully',
       elements: category,
       expose: {},
     });

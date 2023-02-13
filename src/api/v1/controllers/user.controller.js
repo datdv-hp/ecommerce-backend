@@ -2,8 +2,8 @@ const userServices = require('../services/user.service');
 const asyncHandler = require('express-async-handler');
 const httpError = require('http-errors');
 
-const { validateMongodbId } = require('../helpers/validateMongodbId.helper');
-const { sendEmail } = require('./email.controller');
+const { validateMongodbId } = require('../validations/mongoID.validate');
+const { sendEmail } = require('../services/email.service');
 
 const registerUser = asyncHandler(async (req, res) => {
   const userData = req.body;

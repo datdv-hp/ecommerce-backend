@@ -1,5 +1,5 @@
 const asyncHandler = require('express-async-handler');
-const { validateMongodbId } = require('../helpers/validateMongodbId.helper');
+const { validateMongodbId } = require('../validations/mongoID.validate');
 const productService = require('../services/product.service');
 const { validateProduct } = require('../validations/product.validate');
 const httpError = require('http-errors');

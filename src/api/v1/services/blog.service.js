@@ -30,7 +30,9 @@ const getBlog = async (id) => {
         $inc: { numberOfViews: 1 },
       },
       { new: true }
-    ).populate('likes');
+    )
+      .populate('likes')
+      .populate('dislikes');
     return foundBlog;
   } catch (error) {
     throw error;

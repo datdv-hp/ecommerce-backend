@@ -1,9 +1,9 @@
 module.exports = {};
 const asyncHandler = require('express-async-handler');
-const { validateBlog } = require('../validations/validate.blog');
+const { validateBlog } = require('../validations/blog.validate');
 const blogService = require('../services/blog.service');
 const httpError = require('http-errors');
-const { validateMongodbId } = require('../helpers/validateMongodbId.helper');
+const { validateMongodbId } = require('../validations/mongoID.validate');
 
 const createBlog = asyncHandler(async (req, res, next) => {
   const blogData = req.body;

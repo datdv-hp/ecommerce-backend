@@ -1,5 +1,7 @@
 const { Product } = require('../models/product.model');
 const slugify = require('slugify');
+const { User } = require('../models/user.model');
+const httpError = require('http-errors');
 
 const createProduct = async (productData) => {
   try {
@@ -7,7 +9,7 @@ const createProduct = async (productData) => {
     const newProduct = await Product.create(productData);
     return newProduct;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -74,7 +76,7 @@ const updateProduct = async (id, updatingData) => {
     });
     return updatedProduct;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -85,7 +87,109 @@ const deleteProduct = async (id) => {
     });
     return deletedProduct;
   } catch (error) {
-    throw error;
+    throw new Error(error);
+  }
+};
+
+const addProductToWishlist = async (userId, productId) => {
+  try {
+    const foundUser = await User.findById(userId);
+    if (!foundUser) {
+      throw httpError.NotFound('Not found user by the provided ID');
+    }
+    const product = await Product.findById(productId);
+    if (!product) {
+      throw httpError.NotFound('Not found product by the provided ID');
+    }
+
+    const alreadyAdded = foundUser.wishlist.find(
+      (id) => id.toString() === productId
+    );
+    if (alreadyAdded) {
+      const user = await User.findByIdAndUpdate(
+        userId,
+        {
+          $pull: { wishlist: productId },
+        },
+        {
+          new: true,
+        }
+      );
+      return user;
+    } else {
+      const user = await User.findByIdAndUpdate(
+        userId,
+        {
+          $push: { wishlist: productId },
+        },
+        {
+          new: true,
+        }
+      );
+      return user;
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const rating = async (userId, productId, comment = '', star) => {
+  try {
+    const foundUser = await User.findById(userId);
+    if (!foundUser) {
+      throw httpError.NotFound('Not found user by the provided ID');
+    }
+    const product = await Product.findById(productId);
+    if (!product) {
+      throw httpError.NotFound('Not found product by the provided ID');
+    }
+
+    const alreadyRated = product.ratings.find(
+      (rate) => rate?.postedBy.toString() === userId.toString()
+    );
+    if (alreadyRated) {
+      await Product.updateOne(
+        {
+          ratings: { $elemMatch: alreadyRated },
+        },
+        {
+          $set: { 'ratings.$.stars': star, 'ratings.$.comment': comment },
+        },
+        {
+          new: true,
+        }
+      );
+    } else {
+      await Product.findByIdAndUpdate(
+        productId,
+        {
+          $push: {
+            ratings: { stars: star, comment: comment, postedBy: userId },
+          },
+        },
+        {
+          new: true,
+        }
+      );
+    }
+
+    // update total ratings
+    const ratings = (await Product.findById(productId))?.ratings;
+    let totalRating = ratings.length;
+    let ratingSum = ratings
+      .map((rate) => rate.stars)
+      .reduce((prev, current) => prev + current, 0);
+    let rating = Math.round(ratingSum / totalRating);
+    const productRating = await Product.findByIdAndUpdate(
+      productId,
+      {
+        totalRating: rating,
+      },
+      { new: true }
+    );
+    return productRating;
+  } catch (error) {
+    throw new Error(error);
   }
 };
 
@@ -95,4 +199,6 @@ module.exports = {
   getAllProducts,
   updateProduct,
   deleteProduct,
+  addProductToWishlist,
+  rating,
 };

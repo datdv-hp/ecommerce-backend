@@ -6,7 +6,7 @@ const createBlog = async (blogData) => {
     const newBlog = await Blog.create(blogData);
     return newBlog;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -17,7 +17,7 @@ const updateBlog = async (id, updateData) => {
     });
     return updatedBlog;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -35,7 +35,7 @@ const getBlog = async (id) => {
       .populate('dislikes');
     return foundBlog;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -46,7 +46,7 @@ const deleteBlog = async (id) => {
     });
     return deletedBlog;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -91,7 +91,7 @@ const likeBlog = async (blogId, loginUserId) => {
       return blog;
     }
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -136,7 +136,7 @@ const dislikeBlog = async (blogId, loginUserId) => {
       return blog;
     }
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 

@@ -4,7 +4,7 @@ const createCategory = async (categoryData) => {
     const newCategory = await BlogCategory.create(categoryData);
     return newCategory;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -15,7 +15,7 @@ const updateCategory = async (id, updatingData) => {
     });
     return newCategory;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -24,7 +24,7 @@ const getAllCategory = async () => {
     const categories = await BlogCategory.find();
     return categories;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -33,7 +33,7 @@ const getCategory = async (id) => {
     const category = await BlogCategory.findById(id).select('-__v');
     return category;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -44,7 +44,7 @@ const deleteCategory = async (id) => {
     );
     return deletedCategory;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 

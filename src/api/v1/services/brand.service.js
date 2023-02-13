@@ -4,7 +4,7 @@ const createBrand = async (brandData) => {
     const newBrand = await Brand.create(brandData);
     return newBrand;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -15,7 +15,7 @@ const updateBrand = async (id, updatingData) => {
     });
     return newBrand;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -24,7 +24,7 @@ const getAllBrands = async () => {
     const brands = await Brand.find();
     return brands;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -33,7 +33,7 @@ const getBrand = async (id) => {
     const brand = await Brand.findById(id).select('-__v');
     return brand;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -42,7 +42,7 @@ const deleteBrand = async (id) => {
     const deletedBrand = await Brand.findByIdAndDelete(id).select('title');
     return deletedBrand;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 

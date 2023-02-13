@@ -4,7 +4,7 @@ const createCategory = async (categoryData) => {
     const newCategory = await ProductCategory.create(categoryData);
     return newCategory;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -19,7 +19,7 @@ const updateCategory = async (id, updatingData) => {
     );
     return newCategory;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -28,7 +28,7 @@ const getAllCategory = async () => {
     const categories = await ProductCategory.find();
     return categories;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -37,7 +37,7 @@ const getCategory = async (id) => {
     const category = await ProductCategory.findById(id).select('-__v');
     return category;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -48,7 +48,7 @@ const deleteCategory = async (id) => {
     );
     return deletedCategory;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 

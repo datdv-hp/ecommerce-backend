@@ -16,7 +16,7 @@ const createUser = async (userData) => {
 
     // return await newUser.save();
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -44,7 +44,7 @@ const authUser = async (userData) => {
     };
     return user;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -59,7 +59,7 @@ const logout = async (refreshToken) => {
     console.log(`LOGOUT::: ${result}`);
     return result;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -76,7 +76,7 @@ const handleRefreshToken = async (refreshToken) => {
     const accessToken = generateToken(decoded.id);
     return accessToken;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -85,7 +85,7 @@ const getAllUsers = async () => {
     const users = await User.find();
     return users;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -97,7 +97,7 @@ const getUser = async (id) => {
     }
     return user;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -109,7 +109,7 @@ const deleteUser = async (id) => {
     }
     return user;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -123,7 +123,7 @@ const updateUser = async (id, updateData) => {
     }
     return updatedUser;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -139,7 +139,7 @@ const blockUser = async (id) => {
     }
     return user;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 const unblockUser = async (id) => {
@@ -154,7 +154,7 @@ const unblockUser = async (id) => {
     }
     return user;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -169,7 +169,7 @@ const createResetToken = async (email) => {
     await foundUser.save();
     return resetToken;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -193,7 +193,7 @@ const resetPassword = async (resetToken, password) => {
       return foundUser._id;
     }
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 

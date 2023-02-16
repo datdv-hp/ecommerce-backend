@@ -14,7 +14,9 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, JWT_ACCESS_SECRET);
     console.log(`decoded::: ${decoded}`);
-    const user = await User.findById(decoded?.id);
+    const user = await User.findById(decoded?.id).select(
+      '-password -passwordChagedAt -passwordResetToken -passwordResetExpires -refreshToken'
+    );
     req.user = user;
     next();
   } catch (error) {

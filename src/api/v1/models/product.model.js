@@ -14,8 +14,16 @@ var productSchema = new Schema(
     images: { type: Array },
     color: { type: String, required: true },
     ratings: [
-      { stars: Number, postedBy: { type: Schema.Types.ObjectId, ref: 'User' } },
+      {
+        stars: Number,
+        comment: String,
+        postedBy: { type: Schema.Types.ObjectId, ref: 'User' },
+      },
     ],
+    totalRating: {
+      type: String,
+      default: 0,
+    },
   },
   { collection: 'products', timestamps: true }
 );

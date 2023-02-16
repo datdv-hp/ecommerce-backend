@@ -37,7 +37,7 @@ const filterSortPagination = async (Model, queries) => {
       limit,
     };
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 };
 

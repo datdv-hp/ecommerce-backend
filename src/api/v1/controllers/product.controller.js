@@ -1,8 +1,9 @@
 const asyncHandler = require('express-async-handler');
-const { validateMongodbId } = require('../helpers/validateMongodbId.helper');
+const { validateMongodbId } = require('../validations/mongoID.validate');
 const productService = require('../services/product.service');
 const { validateProduct } = require('../validations/product.validate');
 const httpError = require('http-errors');
+const { User } = require('../models/user.model');
 
 const createProduct = asyncHandler(async (req, res, next) => {
   const productData = req.body;
@@ -88,10 +89,54 @@ const deleteProduct = asyncHandler(async (req, res, next) => {
   }
 });
 
+const addToWishList = asyncHandler(async (req, res, next) => {
+  const { _id: userId } = req.user;
+  const { productId } = req.body;
+
+  const addProductToWishlist = await productService.addProductToWishlist(
+    userId,
+    productId
+  );
+  if (!addProductToWishlist) {
+    throw httpError.NotFound('Not found userID or productId');
+  } else {
+    res.status(200).json({
+      status: 200,
+      message: 'OK! ADD successfully',
+      elements: addProductToWishlist,
+      expose: {},
+    });
+  }
+});
+
+const rating = asyncHandler(async (req, res) => {
+  const { _id: userId } = req.user;
+  const { productId, comment, star } = req.body;
+  console.log('body>>', req.body);
+  const productRating = await productService.rating(
+    userId,
+    productId,
+    comment,
+    star
+  );
+  if (!productRating) {
+    throw httpError.NotFound('Not found user ID or product Id');
+  } else {
+    res.status(200).json({
+      status: 200,
+      message: 'OK! updated rating successfully',
+      elements: productRating,
+      expose: {},
+    });
+  }
+});
+
 module.exports = {
   createProduct,
   getAllProducts,
   getProduct,
   updateProduct,
   deleteProduct,
+  addToWishList,
+  rating,
 };
